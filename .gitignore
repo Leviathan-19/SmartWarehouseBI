@@ -1,2 +1,10 @@
 Prompt_DataWarehouse_BI_Empresarial.md
 Roadmap_DataWarehouse_BI.md
+
+@"
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+"@ | Out-File -FilePath .gitignore -Encoding utf8
