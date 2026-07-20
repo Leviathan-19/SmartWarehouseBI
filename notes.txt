@@ -20,3 +20,9 @@ ITEM TYPE: tipo de producto.
 RETAIL SALES: ventas en tiendas (en unidades o valor, parece ser en dólares).
 RETAIL TRANSFERS: transferencias a tiendas (posiblemente inventario movido).
 WAREHOUSE SALES: ventas desde el almacén (posiblemente a mayoristas o para consumo propio).
+
+-------------------------- install commands --------------------------
+pip install python-dotenv
+pip install pandas 
+pip install sqlalchemy
+pip install psycopg2   
