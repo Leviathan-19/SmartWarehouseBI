@@ -3,10 +3,10 @@ import pandas as pd
 def load_data(df, engine):
     print("Iniciando carga al Data Warehouse (Supabase)...")
     
-    # 1. Preparar las Dimensiones (Extrayendo valores únicos)
-    dim_time_df = df[['year', 'month']].drop_duplicates().copy()
-    dim_supplier_df = df[['supplier_name']].drop_duplicates().copy()
-    dim_item_df = df[['item_code', 'item_description', 'item_type']].drop_duplicates().copy()
+    # 1. Preparar las Dimensiones (Extrayendo valores únicos y asegurando llaves únicas reales)
+    dim_time_df = df[['year', 'month']].drop_duplicates(subset=['year', 'month']).copy()
+    dim_supplier_df = df[['supplier_name']].drop_duplicates(subset=['supplier_name']).copy()
+    dim_item_df = df[['item_code', 'item_description', 'item_type']].drop_duplicates(subset=['item_code']).copy()
     
     print(f"Nuevos registros a cargar -> Tiempo: {len(dim_time_df)}, Proveedores: {len(dim_supplier_df)}, Productos: {len(dim_item_df)}")
     
