@@ -9,3 +9,4 @@ __pycache__/
 .env
 "@ | Out-File -FilePath .gitignore -Encoding utf8
 docs/02_KPIs_and_BSC.md
+sql/05_reset_database.sql
