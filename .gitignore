@@ -8,3 +8,4 @@ __pycache__/
 .DS_Store
 .env
 "@ | Out-File -FilePath .gitignore -Encoding utf8
+docs/02_KPIs_and_BSC.md
