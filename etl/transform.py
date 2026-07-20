@@ -3,7 +3,7 @@ import pandas as pd
 def transform_data(df):
     print("Iniciando transformación de datos (Políticas COBIT APO11)...")
     
-    # 1. Renombrar columnas para que coincidan con la BD y facilitar manipulación
+    # Renombrar columnas para que coincidan con la BD y facilitar manipulación
     df.rename(columns={
         'YEAR': 'year',
         'MONTH': 'month',
@@ -16,10 +16,9 @@ def transform_data(df):
         'WAREHOUSE SALES': 'warehouse_sales'
     }, inplace=True)
     
-    # 2. Control de Calidad: Aunque nos confirmaste que la data está limpia,
     # el ETL DEBE tener las reglas por si ingresa nueva data sucia en el futuro.
     df['supplier_name'] = df['supplier_name'].fillna('Desconocido')
-    df['item_code'] = df['item_code'].fillna('Desc')
+    df['item_code'] = df['item_code'].fillna('Desc').astype(str)
     df['item_description'] = df['item_description'].fillna('Desconocido')
     df['item_type'] = df['item_type'].fillna('Unknown')
     
