@@ -6,10 +6,10 @@ El proyecto está diseñado bajo un modelo dimensional (Esquema Estrella) y docu
 
 ---
 
-## 💾 Dataset y Limpieza de Datos
+## Dataset y Limpieza de Datos
 
 El dataset utilizado para este proyecto fue obtenido originalmente de Kaggle:
-🔗 **[Warehouse and Retail Sales Dataset](https://www.kaggle.com/datasets/lalit7881/warehouse-and-retail-sales/data)**
+**[Warehouse and Retail Sales Dataset](https://www.kaggle.com/datasets/lalit7881/warehouse-and-retail-sales/data)**
 
 **Proceso de Limpieza:**
 Para asegurar la calidad de la información (COBIT APO11), la data pasó por un proceso de limpieza inicial riguroso. Se eliminaron registros anómalos y aquellos que contenían columnas vacías o nulas. En la etapa de transformación (Python Pandas), se estandarizaron los tipos de datos forzando valores mixtos (como el `ITEM CODE`) a cadenas de texto estrictas para asegurar el éxito de los cruces (Joins) en el Data Warehouse.
@@ -27,25 +27,35 @@ Para asegurar la calidad de la información (COBIT APO11), la data pasó por un 
 
 ---
 
-## 🚀 Arquitectura del Proyecto
+## Arquitectura del Proyecto
 
-* **Origen de Datos:** Dataset CSV de Ventas (Retail y Warehouse).
-* **Motor ETL:** Python (`pandas` y `SQLAlchemy`).
-* **Data Warehouse:** PostgreSQL en la nube (Supabase).
-* **Visualización:** Microsoft Power BI.
+El flujo de datos del proyecto sigue un diseño secuencial automatizado, desde la ingesta hasta la visualización final:
+
+![Arquitectura del Proyecto](img/Arquitectura_DataWarehouse_PowerBI.png)
+
+1. **Origen de Datos:** La data inicial proviene de un archivo CSV (`datasets/`).
+2. **Motor ETL (Python):** A través de scripts modulares (`pandas` y `SQLAlchemy`), extraemos la data, la transformamos aplicando las reglas de negocio, y la cargamos masivamente.
+3. **Data Warehouse (PostgreSQL):** Almacenamos la información en **Supabase**, que sirve como nuestro motor de base de datos en la nube.
+4. **Visualización (Power BI):** Nos conectamos a las vistas de la base de datos para construir el Balanced Scorecard interactivo.
 
 ---
 
-## 🗄️ Base de Datos (Supabase)
+## Base de Datos y Modelo Dimensional (Supabase)
 
-Las tablas fueron modeladas en un Esquema Estrella e implementadas en PostgreSQL.
-*A continuación, una captura de las tablas y relaciones implementadas en Supabase:*
+Para optimizar las consultas y estructurar el Data Warehouse, implementamos un **Modelo Dimensional (Esquema Estrella)**. 
 
+**Proceso de Modelado:**
+1. **Tabla de Hechos (`fact_sales`):** Se ubicó en el centro, almacenando únicamente las llaves foráneas y las métricas cuantitativas (Ventas y Transferencias).
+2. **Dimensiones (`dim_time`, `dim_item`, `dim_supplier`):** Tablas satélites que contienen los descriptores cualitativos, garantizando que no haya redundancia de datos.
+
+![Modelo Dimensional](img/Modelo_dimensional.png)
+
+*A continuación, una captura de la implementación real de estas tablas y sus llaves foráneas dentro de Supabase:*
 ![Tablas en Supabase](img/Supabase.jpg)
 
 ---
 
-## 📊 Dashboard y Vistas SQL
+## Dashboard y Vistas SQL
 
 El Data Warehouse no alimenta directamente a Power BI con tablas crudas (buena práctica de BI). Hemos implementado un modelo de **Vistas Analíticas en Base de Datos** (`sql/04_kpis_views.sql`) para que el servidor Postgres haga el procesamiento pesado, entregando métricas limpias para el Balanced Scorecard:
 
@@ -56,11 +66,11 @@ El Data Warehouse no alimenta directamente a Power BI con tablas crudas (buena p
 
 ---
 
-## 📈 Resultados Finales en Power BI
+## Resultados Finales en Power BI
 
 El reporte interactivo desarrollado en Microsoft Power BI se encuentra en este repositorio, listo para ser descargado y explorado.
 
-📥 **[Descargar Dashboard (.pbix)](dashboards/Dashboards_Datawarehouse-Marcos%20Narv%C3%A1ez.pbix)**
+**[Descargar Dashboard (.pbix)](dashboards/Dashboards_Datawarehouse-Marcos%20Narv%C3%A1ez.pbix)**
 
 *Proceso de elaboración y modelado dentro de Power BI Desktop:*
 ![Elaboración en Power BI](img/Elaboracion_dashboards_powerBI.jpg)
@@ -73,7 +83,7 @@ El reporte interactivo desarrollado en Microsoft Power BI se encuentra en este r
 
 ---
 
-## 📂 Estructura del Repositorio
+## Estructura del Repositorio
 
 ```text
 📁 DataWarehouse-BI/
@@ -89,7 +99,7 @@ El reporte interactivo desarrollado en Microsoft Power BI se encuentra en este r
 └── Roadmap_DataWarehouse_BI.md    # Hilo conductor y fases del proyecto
 ```
 
-## 🛠️ Cómo ejecutar el ETL (Para Desarrolladores)
+## Cómo ejecutar el ETL (Para Desarrolladores)
 
 1. Clona el repositorio e instala las dependencias:
    ```bash
