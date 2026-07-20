@@ -59,3 +59,13 @@ El Data Warehouse no alimenta directamente a Power BI con tablas crudas. Hemos i
 * `v_bsc_learning_growth`
 
 *(Para más detalle de cada KPI, revisa `docs/02_KPIs_and_BSC.md`)*
+
+## 📈 Vistas del Dashboard (Resultados Finales)
+
+A continuación se muestran los resultados finales visualizados en Microsoft Power BI, estructurados en las perspectivas de nuestro Balanced Scorecard:
+
+### Nivel Ejecutivo (Resumen Financiero y Crecimiento)
+![Resumen Financiero](img/Dashboard1_resumen_financiero.jpg)
+
+### Nivel Operativo (Operaciones y Proveedores)
+![Operaciones y Proveedores](img/Dashboard2_operaciones_y_proveedores.jpg)
